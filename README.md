@@ -1,2 +1,7 @@
 # llm-pdf
-LLM pdf reader
+
+## How to run
+
+```bash
+streamlit run main.py
+```
