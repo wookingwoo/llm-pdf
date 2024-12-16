@@ -2,7 +2,7 @@ langchain
 langchain-community
 openai
 pypdf
-chromadb
+chromadb==0.4.17
 tiktoken
 pysqlite3-binary
 streamlit-extras
