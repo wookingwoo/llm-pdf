@@ -1,7 +1,10 @@
+# 로컬에서는 아래 코드 주석 처리
+################################################################################
 __import__("pysqlite3")
 import sys
 
 sys.modules["sqlite3"] = sys.modules.pop("pysqlite3")
+################################################################################
 
 from langchain.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -17,15 +20,15 @@ from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 
 button(username="wookingwoo", floating=True, width=221)
 
-# 제목
+# Title
 st.title("ChatPDF")
 st.write("---")
 
-# OpenAI KEY 입력 받기
+# Enter OpenAI KEY
 openai_key = st.text_input("OPEN_AI_API_KEY", type="password")
 
-# 파일 업로드
-uploaded_file = st.file_uploader("PDF 파일을 올려주세요!", type=["pdf"])
+# File Upload
+uploaded_file = st.file_uploader("Please upload a PDF file!", type=["pdf"])
 st.write("---")
 
 
@@ -39,7 +42,7 @@ def pdf_to_document(uploaded_file):
     return pages
 
 
-# 업로드 되면 동작하는 코드
+# Code to execute when a file is uploaded
 if uploaded_file is not None:
     pages = pdf_to_document(uploaded_file)
 
@@ -72,15 +75,15 @@ if uploaded_file is not None:
             self.container.markdown(self.text)
 
     # Question
-    st.header("PDF에게 질문해보세요!!")
-    question = st.text_input("질문을 입력하세요")
+    st.header("Ask the PDF a question!")
+    question = st.text_input("Enter your question")
 
-    if st.button("질문하기"):
+    if st.button("Ask"):
         with st.spinner("Wait for it..."):
             chat_box = st.empty()
             stream_hander = StreamHandler(chat_box)
             llm = ChatOpenAI(
-                model_name="gpt-3.5-turbo",
+                model_name="gpt-4o",
                 temperature=0,
                 openai_api_key=openai_key,
                 streaming=True,
